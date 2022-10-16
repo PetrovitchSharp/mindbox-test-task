@@ -1,3 +1,5 @@
+from functools import cache
+
 def get_members_count(n_customers: int, n_first_id: int) -> dict:
     '''
     Get the number of members of each group
@@ -12,32 +14,21 @@ def get_members_count(n_customers: int, n_first_id: int) -> dict:
     Raises:
         ValueError: If number of customers less than 1 OR first ID is negative
     '''
-    def get_sum_fo_digits(num: int) -> int:
+    @cache
+    def get_sum_of_digits(num: int) -> int:
         '''
-        Get sum of decimal number's digits
+        Get sum of decimal number's digits (recursively)
 
         Args:
             num: Decimal non-negative number
 
         Returns:
             Sum of number's digits
-
-        Raises:
-            ValueError: If parameter less than 0
         '''
-        if num < 0:
-            raise ValueError('Number has to be non-negative integer')
+        if num < 10:
+            return num
 
-        sum_ = 0
-
-        # At each iteration we get last digit,
-        # add it to the sum and divide number by 10
-        # to get next digit as long as we have digits
-        while num > 0:
-            sum_ += num % 10
-            num //= 10
-
-        return sum_
+        return (num % 10) + get_sum_of_digits(num // 10)   
 
     if n_customers < 1:
         raise ValueError('Number of customers must be non-negative integer')
@@ -50,7 +41,7 @@ def get_members_count(n_customers: int, n_first_id: int) -> dict:
     # For each ID we get it's digit's sum
     for num in range(n_first_id, n_first_id + n_customers):
 
-        sum_of_digits = get_sum_fo_digits(num)
+        sum_of_digits = get_sum_of_digits(num)
 
         if groups_counter.get(sum_of_digits, 0) > 0:
             # If we have such sum of digits in dictionary,
