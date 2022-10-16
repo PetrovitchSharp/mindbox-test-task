@@ -12,28 +12,28 @@ def make_parser() -> argparse.ArgumentParser:
     '''
 
     parser = argparse.ArgumentParser(
-        description='Get count of group\'s members'
+        description = 'Get count of group\'s members'
     )
 
     parser.add_argument(
         '-n_customers',
-        type=int,
-        default=1,
-        help='Number of customers'
+        type = int,
+        default = 1,
+        help = 'Number of customers'
     )
 
     parser.add_argument(
         '-n_first_id',
-        type=int,
-        default=0,
-        help='First ID of sequence'
+        type = int,
+        default = 0,
+        help = 'First ID of sequence'
     )
 
     parser.add_argument(
         '-mode',
-        type=str,
-        default='from_zero',
-        help='Operating mode (possible values: from_zero, from_id)'
+        type = str,
+        default = 'from_zero',
+        help = 'Operating mode (possible values: from_zero, from_id)'
     )
 
     return parser
