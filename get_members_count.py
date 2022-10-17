@@ -82,10 +82,16 @@ def main() -> None:
     # Running script in chosen mode
     match mode:
         case 'from_zero':
-            print_dict(get_members_count_from_zero(n_customers))
+            try:
+                print_dict(get_members_count_from_zero(n_customers))
+            except ValueError as err:
+                print(f'Error: {err}')
 
         case 'from_id':
-            print_dict(get_members_count(n_customers, n_first_id))
+            try:
+                print_dict(get_members_count(n_customers, n_first_id))
+            except ValueError as err:
+                print(f'Error: {err}')  
 
         case _:
             print('No such mode')
